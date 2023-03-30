@@ -14,6 +14,7 @@
 // more in depth in the coming lectures.
 extern crate rand;
 use rand::Rng;
+use std::collections::HashSet;
 use std::fs;
 use std::io;
 use std::io::Write;
@@ -27,6 +28,18 @@ fn pick_a_random_word() -> String {
     String::from(words[rand::thread_rng().gen_range(0, words.len())].trim())
 }
 
+fn get_current_state(vec : &Vec<char>, set : &HashSet<char>) -> String {
+    let mut rst: String = String::new();
+    for c in vec.iter() {
+        if set.contains(c) {
+            rst.push(*c);
+        } else {
+            rst.push('-');
+        }
+    }
+    return rst;
+}
+
 fn main() {
     let secret_word = pick_a_random_word();
     // Note: given what you know about Rust so far, it's easier to pull characters out of a
@@ -35,6 +48,47 @@ fn main() {
     let secret_word_chars: Vec<char> = secret_word.chars().collect();
     // Uncomment for debugging:
     // println!("random word: {}", secret_word);
+    let mut guesses_remaining: u32 = NUM_INCORRECT_GUESSES;
+    let mut guessed_letters: String = String::new();
+    let mut guessed: HashSet<char> = HashSet::new();
+    let mut remaining: HashSet<char> = HashSet::new();
+    for i in secret_word_chars.iter() {
+        remaining.insert(*i);
+    }
 
-    // Your code here! :)
+    println!("Welcome to CS110L Hangman!");
+    loop {
+        println!("The word so far is {}", get_current_state(&secret_word_chars, &guessed));
+        println!("You have guessed the following letters:{}", guessed_letters);
+        println!("You have {} guesses left", guesses_remaining);
+
+        print!("Please guess a letter: ");
+        io::stdout()
+        .flush()
+        .expect("Error flushing stdout.");
+        let mut guess = String::new();
+        io::stdin()
+        .read_line(&mut guess)
+        .expect("Error reading line.");
+        let letter = guess.chars().next().unwrap();
+
+
+        guessed_letters += &String::from(letter);
+        if !remaining.contains(&letter) {
+            guesses_remaining -= 1;
+            println!("Sorry, that letter is not in the word");
+        } else {
+            guessed.insert(letter);
+            remaining.remove(&letter);
+        }
+        if guesses_remaining == 0 {
+            println!("Sorry, you ran out of guesses!");
+            break;
+        }
+        if remaining.is_empty() {
+            println!("Congratulations you guessed the secret word: {}!\n", secret_word);
+            break;
+        }
+        println!();
+    }
 }
