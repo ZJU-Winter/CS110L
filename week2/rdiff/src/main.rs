@@ -7,30 +7,28 @@ use std::process;
 pub mod grid;
 
 /// Reads the file at the supplied path, and returns a vector of strings.
-#[allow(unused)] // TODO: delete this line when you implement this function
+// #[allow(unused)]
 fn read_file_lines(filename: &String) -> Result<Vec<String>, io::Error> {
-    unimplemented!();
-    // Be sure to delete the #[allow(unused)] line above
+    // unimplemented!();
 }
 
-#[allow(unused)] // TODO: delete this line when you implement this function
+// #[allow(unused)]
 fn lcs(seq1: &Vec<String>, seq2: &Vec<String>) -> Grid {
     // Note: Feel free to use unwrap() in this code, as long as you're basically certain it'll
     // never happen. Conceptually, unwrap() is justified here, because there's not really any error
     // condition you're watching out for (i.e. as long as your code is written correctly, nothing
     // external can go wrong that we would want to handle in higher-level functions). The unwrap()
     // calls act like having asserts in C code, i.e. as guards against programming error.
-    unimplemented!();
+    // unimplemented!();
     // Be sure to delete the #[allow(unused)] line above
 }
 
-#[allow(unused)] // TODO: delete this line when you implement this function
+// #[allow(unused)]
 fn print_diff(lcs_table: &Grid, lines1: &Vec<String>, lines2: &Vec<String>, i: usize, j: usize) {
-    unimplemented!();
     // Be sure to delete the #[allow(unused)] line above
 }
 
-#[allow(unused)] // TODO: delete this line when you implement this function
+// #[allow(unused)]
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
@@ -40,8 +38,7 @@ fn main() {
     let filename1 = &args[1];
     let filename2 = &args[2];
 
-    unimplemented!();
-    // Be sure to delete the #[allow(unused)] line above
+    // unimplemented!();
 }
 
 #[cfg(test)]
